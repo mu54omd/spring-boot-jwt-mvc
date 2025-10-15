@@ -22,7 +22,7 @@ public class JwtService {
 
     private SecretKey secretKey;
 
-    private long accessTokenValidityMs = 1L * 60L * 1000L;
+    private long accessTokenValidityMs = 5L * 60L * 1000L;
     private long refreshTokenValidityMs = 5L * 24L * 60L * 60L * 1000L;
 
     public long getAccessTokenValidityMs() {

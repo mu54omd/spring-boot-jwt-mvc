@@ -12,6 +12,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @Controller
 @RequestMapping("/auth")
@@ -27,7 +28,12 @@ public class AuthController {
     @GetMapping("/login")
     public String showLoginForm(Model theModel){
         theModel.addAttribute("authRequest", new AuthRequest());
-        return "login";
+        return "login-form";
+    }
+    @GetMapping("/register")
+    public String showRegisterForm(Model theModel){
+        theModel.addAttribute("authRequest", new AuthRequest());
+        return "register-form";
     }
 
     @GetMapping("/access-denied")
@@ -35,9 +41,14 @@ public class AuthController {
         return "access-denied";
     }
 
-    @PostMapping("/register")
-    void register(@Valid @RequestBody AuthRequest body){
-        authService.register(body.getEmail(), body.getPassword());
+    @PostMapping("/performRegister")
+    public String register(@Valid @ModelAttribute("authRequest") AuthRequest authRequest){
+        try {
+            authService.register(authRequest.getEmail(), authRequest.getPassword());
+        } catch (ResponseStatusException e) {
+            return "redirect:/auth/register?conflict";
+        }
+        return "redirect:/auth/login?successful";
     }
 
     @PostMapping("/performLogin")
@@ -57,8 +68,9 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/refresh")
-    TokenPair refresh(@RequestBody RefreshRequest body) {
-        return authService.refresh(body.getRefreshToken());
+    @GetMapping("/performLogout")
+    public String logout(HttpServletRequest request, HttpServletResponse response){
+        authService.logout(request, response);
+        return "redirect:/auth/login?logout";
     }
 }

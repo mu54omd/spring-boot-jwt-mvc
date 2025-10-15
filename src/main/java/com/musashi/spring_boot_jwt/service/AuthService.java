@@ -111,6 +111,20 @@ public class AuthService {
         return new TokenPair(newAccessToken, newRefreshToken);
     }
 
+    public void logout(HttpServletRequest request, HttpServletResponse response){
+        Cookie[] cookies = request.getCookies();
+        if(cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("JWT_ACCESS_TOKEN".equals(cookie.getName()) || "JWT_REFRESH_TOKEN".equals(cookie.getName())) {
+                    cookie.setMaxAge(0);
+                    cookie.setPath("/");
+                    cookie.setHttpOnly(true);
+                    response.addCookie(cookie);
+                }
+            }
+        }
+    }
+
     private void storeRefreshToken(ObjectId userId, String rawRefreshToken) {
         String hashedToken = hashedToken(rawRefreshToken);
         long expiresMs = jwtService.getRefreshTokenValidityMs();
@@ -138,7 +152,7 @@ public class AuthService {
     private Cookie cookieConfiguration(String cookieName, String cookieValue, long expiryMs){
         Cookie cookie = new Cookie(cookieName, cookieValue);
         cookie.setPath("/");
-        cookie.setSecure(true);
+        cookie.setSecure(false);
         cookie.setHttpOnly(true);
         cookie.setMaxAge((int) expiryMs / 1000);
         return cookie;
