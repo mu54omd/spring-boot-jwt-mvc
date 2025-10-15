@@ -1,9 +1,9 @@
 package com.musashi.spring_boot_jwt.controller;
 
 import com.musashi.spring_boot_jwt.model.AuthRequest;
-import com.musashi.spring_boot_jwt.model.RefreshRequest;
 import com.musashi.spring_boot_jwt.model.TokenPair;
 import com.musashi.spring_boot_jwt.service.AuthService;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -26,7 +26,17 @@ public class AuthController {
     }
 
     @GetMapping("/login")
-    public String showLoginForm(Model theModel){
+    public String showLoginForm(
+            HttpServletRequest request,
+            Model theModel){
+        Cookie[] cookies = request.getCookies();
+        if(cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("JWT_ACCESS_TOKEN".equals(cookie.getName())) {
+                    return "redirect:/user/home";
+                }
+            }
+        }
         theModel.addAttribute("authRequest", new AuthRequest());
         return "login-form";
     }

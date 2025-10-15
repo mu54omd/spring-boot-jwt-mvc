@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
+        <style>
+            .center {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              padding: 10px;
+            }
+        </style>
         <title>Register Page</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -9,7 +18,7 @@
 
     <body>
         <div class="container">
-            <div id="loginbox" style="margin-top: 50px;" class="col-md-3 col-md-offset-2 col-sm-6 col-sm-offset-2">
+            <div id="loginbox" style="margin-top: 50px;" class="col-md-3 col-md-offset-2 col-sm-6 col-sm-offset-2 center">
                 <div class="card border-info">
                     <div class="card-header bg-info">
                         Sign Up
@@ -56,8 +65,9 @@
 
                                 <!-- Login/Submit Button -->
                                 <div style="margin-top: 10px;" class="form-group">
-                                    <div class="col-sm-6 controls">
+                                    <div class="col-sm-20 controls">
                                         <button type="submit" class="btn btn-success">Register</button>
+                                        <a th:href="@{/auth/login}">Already have an account? </a>
                                     </div>
                                 </div>
 

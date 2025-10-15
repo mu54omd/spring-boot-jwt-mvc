@@ -16,13 +16,12 @@
     <form action="#" th:action="@{/user/performAddNote}" th:object="${note}" method="POST">
 
         <input type="hidden" th:field="${note.id}">
-        <input type="text" th:field="${note.title}" class="form-control mb-4 w-25" placeholder="First Name">
-        <input type="text" th:field="${note.content}" class="form-control mb-4 w-25" placeholder="Last Name">
-        <input type="text" th:field="${note.color}" class="form-control mb-4 w-25" placeholder="Email">
-        <button type="submit" class="btn btn-info col-2">Add</button>
+        <input type="text" th:field="${note.title}" class="form-control mb-4" placeholder="Title">
+        <textarea th:field="${note.content}" rows="10" cols="30" class="form-control mb-4" placeholder="Content"></textarea>
+        <input type="text" th:field="${note.color}" class="form-control mb-4" placeholder="Color">
+        <button type="submit" class="btn btn-info">Save</button>
+        <a th:href="@{/user/home}" class="btn btn-primary">Back</a>
     </form>
-    <hr>
-    <a th:href="@{/user/home}">Back to Notes List</a>
 </div>
 
 </body>

@@ -61,10 +61,14 @@ public class AuthService {
         if(cookies != null) {
             for (Cookie cookie : cookies) {
                 if ("JWT_ACCESS_TOKEN".equals(cookie.getName())) {
-                    oldAccessToken = cookie.getValue();
+                    if(jwtService.getUserIdFromToken(cookie.getValue()).equals(user.getId().toHexString())) {
+                        oldAccessToken = cookie.getValue();
+                    }
                 }
                 if ("JWT_REFRESH_TOKEN".equals(cookie.getName())) {
-                    oldRefreshToken = cookie.getValue();
+                    if (jwtService.getUserIdFromToken(cookie.getValue()).equals(user.getId().toHexString())) {
+                        oldRefreshToken = cookie.getValue();
+                    }
                 }
             }
         }
