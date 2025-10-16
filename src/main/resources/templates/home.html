@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <style>
+        .right {
+          float: right;
+          padding: 10px;
+        }
+        .left {
+          float: left;
+          padding: 10px;
+        }
+    </style>
     <meta charset="UTF-8">
     <title>User Home Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,11 +18,11 @@
 </head>
 <body>
 <div class="container">
-    <h3 class="mt-5">
+    <h3 class="mt-5 mb-5">
         Welcome <span th:text="${user.email}"/>
     </h3>
-    <a th:href="@{/user/addNoteForm}" class="btn btn-primary btn-sm mb-5">Add Note</a>
-    <a th:href="@{/auth/performLogout}" class="btn btn-secondary btn-sm mb-5">Logout</a>
+    <a th:href="@{/user/addNoteForm}" class="btn btn-primary btn-sm mb-5 left">Add Note</a>
+    <a th:href="@{/auth/performLogout}" class="btn btn-secondary btn-sm mb-5 right">Logout</a>
 
     <table class="table table-bordered table-striped">
         <thead class="table-dark">

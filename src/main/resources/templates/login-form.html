@@ -9,6 +9,14 @@
               transform: translate(-50%, -50%);
               padding: 10px;
             }
+            .right {
+              float: right;
+              padding: 10px;
+            }
+            .left {
+              float: left;
+              padding: 10px;
+            }
         </style>
         <title>Login Page</title>
         <meta charset="utf-8" />
@@ -75,8 +83,8 @@
                                 <!-- Login/Submit Button -->
                                 <div style="margin-top: 10px;" class="form-group">
                                     <div class="col-sm-20 controls">
-                                        <button type="submit" class="btn btn-success">Login</button>
-                                        <a th:href="@{/auth/register}">Don't have an account? </a>
+                                        <button type="submit" class="btn btn-success left">Login</button>
+                                        <a th:href="@{/auth/register}" class="right">Don't have an account? </a>
                                     </div>
 
                                 </div>
